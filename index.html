@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UK Shooting Sports Calendar | MyShoots®</title>
+<meta name="description" content="Upcoming UK shooting sports events — clay, game, rifle, pistol and shows. Curated by MyShoots®.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#12352B;
+    --pebble:#998F76;
+    --meadow:#E9F5ED;
+    --scarlet:#C11922;
+    --white:#FFFFFF;
+    --ink:#1C2A25;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Montserrat',system-ui,sans-serif;
+    background:var(--meadow);
+    color:var(--ink);
+    line-height:1.55;
+    font-size:16px;
+  }
+  a{color:inherit}
+
+  /* ---------- Masthead ---------- */
+  header{
+    background:var(--green);
+    color:var(--white);
+    padding:34px 20px 30px;
+    text-align:center;
+  }
+  .brand{
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--meadow);
+  }
+  .brand .reg{font-size:.6em;vertical-align:super;letter-spacing:0}
+  header h1{
+    font-weight:800;
+    font-size:clamp(26px,6vw,44px);
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    line-height:1.12;
+    margin:10px auto 8px;
+    max-width:700px;
+  }
+  header h1 .year{color:var(--pebble)}
+  header p.sub{
+    color:#CFE3D6;
+    font-size:14px;
+    max-width:520px;
+    margin:0 auto;
+  }
+
+  /* ---------- Hero image (optional) ---------- */
+  .hero{
+    display:none;           /* shown automatically when HERO_IMAGE is set */
+    height:min(38vw,260px);
+    background-size:cover;
+    background-position:center;
+    border-bottom:4px solid var(--green);
+  }
+
+  /* ---------- Filters ---------- */
+  .filters{
+    position:sticky;top:0;z-index:5;
+    background:var(--meadow);
+    border-bottom:1px solid #D3E5D9;
+    padding:12px 16px;
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  }
+  .filters button{
+    font-family:inherit;
+    font-weight:600;
+    font-size:12.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    border:1.5px solid var(--green);
+    background:transparent;
+    color:var(--green);
+    border-radius:999px;
+    padding:7px 15px;
+    cursor:pointer;
+  }
+  .filters button[aria-pressed="true"]{
+    background:var(--green);
+    color:var(--white);
+  }
+  .filters button:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
+
+
+
+  /* ---------- Club banner ---------- */
+  .clubbanner{
+    background:var(--green);
+    text-align:center;
+    padding:10px 16px;
+  }
+  .clubbanner a{
+    color:var(--meadow);
+    font-weight:600;
+    font-size:13.5px;
+    text-decoration:none;
+  }
+  .clubbanner a b{color:var(--white);text-decoration:underline}
+  .clubbanner a:focus-visible{outline:3px solid var(--scarlet);outline-offset:3px}
+
+  /* ---------- Country select ---------- */
+  .countryrow{
+    display:flex;justify-content:center;align-items:center;gap:8px;
+    padding:12px 16px 4px;flex-wrap:wrap;
+  }
+  .countryrow label{
+    font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--pebble);
+  }
+  .countryrow select{
+    font-family:inherit;font-weight:600;font-size:13.5px;color:var(--green);
+    background:var(--white);border:1.5px solid var(--green);border-radius:999px;
+    padding:8px 14px;cursor:pointer;max-width:260px;
+  }
+  .countryrow select:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
+  .soonnote{
+    text-align:center;color:var(--pebble);font-weight:600;font-size:13px;
+    padding:40px 20px;max-width:520px;margin:0 auto;
+  }
+  .soonnote strong{color:var(--green);display:block;font-size:16px;margin-bottom:6px}
+
+  /* ---------- Free listings strip ---------- */
+  .listings{
+    background:var(--white);
+    border:2px solid var(--green);
+    border-radius:12px;
+    max-width:640px;
+    margin:34px auto 0;
+    padding:22px 22px 20px;
+    text-align:center;
+  }
+  .listings .eyebrow{
+    font-weight:800;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--scarlet);
+  }
+  .listings h3{
+    font-weight:800;font-size:19px;color:var(--green);text-transform:uppercase;margin:8px 0 8px;
+  }
+  .listings p{font-size:14px;color:#41524A;margin-bottom:10px}
+  .listings .how{
+    background:var(--meadow);border-radius:8px;padding:12px 14px;margin:12px 0;
+    font-size:13px;color:#41524A;text-align:left;
+  }
+  .listings .how b{color:var(--green)}
+  .listings a.mail{
+    display:inline-block;background:var(--green);color:var(--white);font-weight:700;
+    font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+    border-radius:8px;padding:12px 22px;margin-top:4px;
+  }
+  .listings a.mail:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
+  .listings small{display:block;margin-top:10px;color:var(--pebble);font-size:12px;line-height:1.5}
+
+  /* ---------- Event list ---------- */
+  main{max-width:760px;margin:0 auto;padding:8px 16px 56px}
+  .month{
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--green);
+    border-bottom:3px solid var(--green);
+    padding:30px 2px 8px;
+    margin-bottom:14px;
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .month small{
+    font-weight:600;letter-spacing:.08em;color:var(--pebble);font-size:11px;
+  }
+  .event{
+    background:var(--white);
+    border-radius:10px;
+    display:flex;
+    gap:16px;
+    padding:14px;
+    margin-bottom:12px;
+    box-shadow:0 1px 3px rgba(18,53,43,.08);
+    text-decoration:none;
+  }
+  a.event:hover .name, a.event:focus-visible .name{text-decoration:underline}
+  a.event:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
+  .datebox{
+    flex:0 0 62px;
+    background:var(--meadow);
+    border:1.5px solid var(--green);
+    border-radius:8px;
+    text-align:center;
+    padding:8px 4px;
+    align-self:flex-start;
+  }
+  .datebox .day{
+    display:block;font-weight:800;font-size:24px;line-height:1;color:var(--green);
+  }
+  .datebox .dow{
+    display:block;font-weight:600;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--pebble);margin-top:4px;
+  }
+  .detail{min-width:0;flex:1}
+  .tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:5px;align-items:center}
+  .tag{
+    font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--green);
+    border:1px solid var(--pebble);
+    border-radius:4px;
+    padding:2px 7px;
+  }
+  .soon{
+    font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--white);
+    background:var(--scarlet);
+    border-radius:4px;
+    padding:3px 8px;
+  }
+  .name{
+    font-weight:700;
+    font-size:16.5px;
+    color:var(--green);
+    line-height:1.3;
+  }
+  .meta{
+    font-size:13px;
+    color:#5A6B63;
+    margin-top:3px;
+  }
+  .meta .loc::before{content:"⌖ ";color:var(--pebble)}
+  .note{
+    font-size:12.5px;
+    color:var(--pebble);
+    margin-top:5px;
+    font-weight:500;
+  }
+  .empty{
+    text-align:center;
+    color:var(--pebble);
+    font-weight:600;
+    padding:60px 20px;
+  }
+
+  /* ---------- Founding Pro CTA ---------- */
+  .cta{
+    background:var(--green);
+    color:var(--white);
+    text-align:center;
+    padding:44px 20px 50px;
+  }
+  .cta .eyebrow{
+    font-weight:700;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--pebble);
+  }
+  .cta h2{
+    font-weight:800;font-size:clamp(20px,4.5vw,30px);
+    text-transform:uppercase;margin:10px 0 8px;
+  }
+  .cta p{color:#CFE3D6;font-size:14px;max-width:460px;margin:0 auto 22px}
+  .cta .price{color:var(--white);font-weight:700}
+  .cta a.button{
+    display:inline-block;
+    background:var(--scarlet);
+    color:var(--white);
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    border-radius:8px;
+    padding:14px 28px;
+  }
+  .cta a.button:focus-visible{outline:3px solid var(--meadow);outline-offset:3px}
+  .cta small{display:block;margin-top:12px;color:#9DBBA9;font-size:12px}
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--pebble);
+    padding:22px 16px 34px;
+  }
+
+  @media (max-width:420px){
+    .event{gap:12px;padding:12px}
+    .datebox{flex-basis:54px}
+    .datebox .day{font-size:21px}
+    .name{font-size:15px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .event{transition:transform .15s ease}
+    a.event:hover{transform:translateY(-2px)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">MyShoots<span class="reg">®</span></div>
+  <h1>UK Shooting Sports<br>Calendar <span class="year" id="yearLabel"></span></h1>
+  <p class="sub">Upcoming shoots, competitions and shows — clay, game, rifle, pistol and more. Curated by MyShoots®.</p>
+</header>
+
+<div class="hero" id="hero" role="img" aria-label=""></div>
+
+<div class="clubbanner">
+  <a href="#listings">Run a club or ground? <b>List your events free &rarr;</b></a>
+</div>
+
+<div class="countryrow">
+  <label for="countrySelect">Country</label>
+  <select id="countrySelect" aria-label="Choose a country"></select>
+  <label for="yearSelect">Year</label>
+  <select id="yearSelect" aria-label="Choose a year"></select>
+</div>
+
+<nav class="filters" id="filters" aria-label="Filter events by discipline"></nav>
+
+<main id="list"></main>
+
+<div class="listings" id="listings">
+  <div class="eyebrow">Free for clubs &amp; grounds</div>
+  <h3>List your events free</h3>
+  <p>Running a shoot, competition or open day? Get it in front of shooters across the country — free, with no catch and no membership required.</p>
+  <div class="how">
+    <b>Email us with:</b> event name · date(s) · venue and county · discipline · booking link · one line about the event.
+  </div>
+  <a class="mail" href="mailto:info@myshoots.io?subject=Calendar%20listing%20request">Email your listing</a>
+  <small>Listings are updated monthly and published on the 1st. Send yours before the end of the month to appear in the next update. We may decline or remove listings at our discretion.</small>
+</div>
+
+
+<p style="text-align:center;font-size:13px;color:#5A6B63;max-width:640px;margin:26px auto 0;padding:0 16px;">
+  Looking for a CPSA registered shoot near you? Search the full fixtures list at
+  <a href="https://www.cpsa.co.uk/events" target="_blank" rel="noopener" style="color:#12352B;font-weight:600;">cpsa.co.uk</a>.
+</p>
+
+<section class="cta">
+  <div class="eyebrow">Founding Pro</div>
+  <h2>Never miss a shoot</h2>
+  <p>Lock in MyShoots® Pro at <span class="price">£1.99/month for 12 months</span> before launch — standard price will be £4.99. No payment today, just secure your spot.</p>
+  <!-- EDIT: point this at your Pro signup page -->
+  <a class="button" href="https://www.myshoots.io/pro">Secure my founding rate</a>
+  <small>No card required · You're reserving your rate, nothing more</small>
+</section>
+
+<footer>
+  © <span id="footYear"></span> MySports Community Ltd · Company No. 15325915 · 128 City Road, London EC1V 2NX<br>
+  Listings are provided in good faith — always confirm details with the organiser.
+</footer>
+
+<script>
+/* ============================================================
+   HERO IMAGE (optional)
+   ------------------------------------------------------------
+   To show a full-width photo under the green masthead, put the
+   image's web address between the quotes below, e.g.
+     const HERO_IMAGE = "https://www.myshoots.io/images/ground.jpg";
+   Use a wide landscape photo you own the rights to (about
+   1600px wide works well). Leave it as "" to show no image.
+   ============================================================ */
+const HERO_IMAGE = "";
+const HERO_ALT = "Shooting ground"; // short description of the photo, for screen readers
+
+/* ============================================================
+   HOW TO ADD OR EDIT EVENTS  (this is the only bit you touch)
+   ------------------------------------------------------------
+   Each event looks like this:
+
+   {
+     name: "Event name",
+     date: "2026-08-15",          // start date, YYYY-MM-DD
+     endDate: "2026-08-16",       // OPTIONAL — for multi-day events
+     location: "Ground name, County",
+     discipline: "Clay",          // Clay | Game | Rifle | Pistol | Airgun | Show | Multi
+     url: "https://...",          // OPTIONAL — event page link
+     note: "Entries close 1 Aug"  // OPTIONAL — short extra line
+   },
+
+   • Events in the past disappear automatically — no need to delete them.
+   • Keep the comma after each closing brace }.
+   • The examples below are PLACEHOLDERS — replace with real events.
+   ============================================================ */
+
+const EVENTS = [
+  {"name": "ISSF World Cup Rifle / Pistol / Shotgun", "date": "2026-07-20", "endDate": "2026-07-29", "location": "Hangzhou, People's Republic of China", "discipline": "Multi", "country": "CN", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Royal Welsh Show (BASC attending)", "date": "2026-07-20", "endDate": "2026-07-23", "location": "Royal Welsh Showground, Builth Wells, Powys", "discipline": "Show", "country": "GB", "url": "https://events.basc.org.uk/events/categories/game-fairs-and-shows/", "note": "Show · verify details"},
+  {"name": "The Game Fair 2026", "date": "2026-07-24", "endDate": "2026-07-26", "location": "Ragley Hall, Alcester, Warwickshire", "discipline": "Show", "country": "GB", "url": "https://thegamefair.org/", "note": "The UK's biggest countryside & shooting event"},
+  {"name": "Firearms Awareness Training (Rifle) – Calton Moor Farm, Derbyshire", "date": "2026-07-25", "location": "Calton Moore Farm, Ashbourne Derbyshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – West London Shooting School, Middlesex", "date": "2026-08-02", "endDate": "2026-08-05", "location": "West London Shooting School, Sharvel Lane, West End Road, Northolt, Middlesex", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "F Class British Open 2026: Teams", "date": "2026-08-03", "endDate": "2026-08-08", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "F Class British Open 2026: Individual", "date": "2026-08-03", "endDate": "2026-08-08", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "F‑Class British Open 2026", "date": "2026-08-03", "endDate": "2026-08-08", "location": "Bisley, Brookwood, Surrey", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "Scottish Target Shooting"},
+  {"name": "Pre DSC1 - High Leas Farm, Whitby", "date": "2026-08-03", "location": "High Leas Farm, Whitby North Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Chippenham Park, Cambridge", "date": "2026-08-04", "endDate": "2026-08-07", "location": "High Park Lodge, Chippenham Park, Chippenham, Eley, Cambridge", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Shotgun Coach Foundation Day - Eaton Hall Shooting Ground, Derbyshire", "date": "2026-08-04", "location": "Eaton Hall Shooting Ground, Ashbourne Derbyshir", "discipline": "Clay", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Blue Hills Farm, Bradford", "date": "2026-08-05", "endDate": "2026-08-08", "location": "Blue Hills Farm, Birkenshaw, Bradford, West Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Shooting Club - Wednesday 5th August 2026", "date": "2026-08-05", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Deer Stalking Certificate 1, Assessment only – Chippenham Park, Cambridge", "date": "2026-08-08", "location": "High Park Lodge, Chippenham Eley, Cambridge", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 1", "date": "2026-08-08", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Hand Loading Course (2-day)", "date": "2026-08-08", "endDate": "2026-08-09", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 2", "date": "2026-08-09", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Deer Stalking Certificate 1 – Elveden Estate, Norfolk", "date": "2026-08-10", "endDate": "2026-08-13", "location": "Elveden Estate, The Game Larder, 48 London Road, Elveden, Suffolk", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "F Class World Championship 2026: Team", "date": "2026-08-10", "endDate": "2026-08-16", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "F Class World Championship 2026: Individual", "date": "2026-08-10", "endDate": "2026-08-16", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "ISSF Academy C Course for Coaches - Rifle, Pistol, Shotgun", "date": "2026-08-10", "endDate": "2026-10-29", "location": "Online", "discipline": "Multi", "country": "GB", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "F‑Class World Championships 2026", "date": "2026-08-10", "endDate": "2026-08-16", "location": "Bisley, Brookwood, Surrey", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "Scottish Target Shooting"},
+  {"name": "Mink Trapping & Dispatch - Bolton Hall Estate, Clitheroe", "date": "2026-08-10", "location": "Bolton Hall, Ribble Valley Lancashire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Basic Metallic Cartridge Reloading – Magherafelt, Co. Londonderry", "date": "2026-08-13", "endDate": "2026-08-14", "location": "Sperrin Sporting Range, 29 Disert Road, Draperstown, Magherafelt, Co. Londonderry", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Game Shooter Certificate 1 – Park Lodge Shooting School, East Yorkshire", "date": "2026-08-14", "endDate": "2026-08-15", "location": "Park Lodge Shooting School, Finnleys Lane, West Cowick, Goole", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Basic Metallic Cartridge Reloading – Oakenshaw, Bradford", "date": "2026-08-15", "endDate": "2026-08-16", "location": "2 Wyke Lane, Oakenshaw, Bradford, West Yorkshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 3", "date": "2026-08-15", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Membership Assessment", "date": "2026-08-15", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Final Briefing Session", "date": "2026-08-16", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "2026 Club Shoot – English Sporting Clay Shoots", "date": "2026-08-16", "location": "Bisley Shooting Ground, Surrey", "discipline": "Clay", "country": "GB", "url": "https://www.bisleyshooting.com/", "note": "Bisley Shooting Ground"},
+  {"name": "Pre DSC1 – BASC Scotland, Trochry", "date": "2026-08-19", "location": "BASC Scotland Centre, Dunkeld Perthshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – BASC Scotland, Trochry", "date": "2026-08-20", "endDate": "2026-08-23", "location": "BASC Scotland Centre, Trochry, Dunkeld, Perthshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 – Great Cressingham, Norfolk", "date": "2026-08-21", "location": "Great Cressingham Village Hall, Thetford Norfolk", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Baronscourt Estate, Co. Tyrone", "date": "2026-08-21", "endDate": "2026-08-23", "location": "Baronscourt Estate, Baronscourt Road, Newtownstewart, Omagh", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Mediterranean Games", "date": "2026-08-21", "endDate": "2026-09-03", "location": "Taranto, Italy", "discipline": "Multi", "country": "IT", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Module 1", "date": "2026-08-22", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "MLAGB Range Officer Course", "date": "2026-08-22", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Bisley National Rifle Meeting 2026", "date": "2026-08-22", "endDate": "2026-08-29", "location": "Bisley, Brookwood, Surrey", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "Scottish Target Shooting"},
+  {"name": "Black Powder Certification", "date": "2026-08-23", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 2", "date": "2026-08-23", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "British Open Sporting Clays Championship 2026", "date": "2026-08-25", "endDate": "2026-08-30", "location": "High Lodge Shooting Ground, Suffolk", "discipline": "Clay", "country": "GB", "url": "https://englishsportingclays.co.uk/english-sporting/british-open", "note": "CPSA major"},
+  {"name": "Deer Stalking Certificate 1 – Great Cressingham, Norfolk", "date": "2026-08-27", "endDate": "2026-08-30", "location": "Great Cressingham Village Hall, 2 Watton Road, Great Cresssingham, Thetford, Norfolk", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "RSO Course (2-day)", "date": "2026-08-29", "endDate": "2026-08-30", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Firearms Awareness Training (Rifle) – Blue Hills Farm, Bradford", "date": "2026-08-30", "location": "Blue Hills Farm, Bradford West Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 4", "date": "2026-08-30", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Wild Boar Certificate – Elveden Estate, Norfolk", "date": "2026-08-31", "endDate": "2026-09-01", "location": "Elveden Estate, The Game Larder, 48 London Road, Elveden, Suffolk", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Carcass & Butchery – Cheshire Wild Venison, Cheshire", "date": "2026-09-02", "location": "Cheshire Wild Venison, Meadow Lane, Ellesmere Port Cheshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Shooting Club - Wednesday 2nd September 2026", "date": "2026-09-02", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Basic Metallic Cartridge Reloading – Marford Mill, Wrexham", "date": "2026-09-03", "endDate": "2026-09-04", "location": "BASC Head Office, Marford Mill, Rossett, Wrexham", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Game Shooter Certificate 1 – Ashcombe Shooting Ground, Devon", "date": "2026-09-03", "endDate": "2026-09-04", "location": "Ashcombe Shooting Ground, Colley Lane, Ashcombe, Near Dawlish, Devon", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 – Thoresby Estate, Nottingham", "date": "2026-09-04", "location": "Thoresby Estate, Ollerton Nottinghamshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Greenlee, Northumberland", "date": "2026-09-04", "endDate": "2026-09-07", "location": "Hill House Field Cottage, Blenkinsop, Haltwhistle, Northumberland", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Firearms Awareness Training (Rifle) – Calton Moor Farm, Derbyshire", "date": "2026-09-05", "location": "Calton Moore Farm, Ashbourne Derbyshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 3", "date": "2026-09-05", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Firearms Awareness Training (Rifle) – Chippenham Park, Cambridge", "date": "2026-09-06", "location": "High Park Lodge, Chippenham Eley, Cambridge", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 – Kernow Training, Cornwall", "date": "2026-09-06", "location": "Kernow Training Group, Summercourt, Newquay Cornwall", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 1", "date": "2026-09-06", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 4", "date": "2026-09-06", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Game Shooter Certificate 1 – Lake Vyrnwy Hotel, Powys", "date": "2026-09-09", "endDate": "2026-09-10", "location": "Lake Vyrnwy Hotel & Spa, Llanwddyn, Powys", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Wild Boar Certificate – Royal Agricultural University, Gloucestershire", "date": "2026-09-09", "endDate": "2026-09-10", "location": "Royal Agricultural University, Trent Lodge, Stroud Road, Cirencester, Gloucestershire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Grey Squirrel Trapping & Dispatch - Bolton Hall Estate, Clitheroe", "date": "2026-09-10", "location": "Bolton Hall, Ribble Valley Lancashire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "International Masters Cup 2026", "date": "2026-09-11", "endDate": "2026-09-17", "location": "Suhl, 98527 Suhl, Schießsportzentrum, Germany", "discipline": "Rifle", "country": "DE", "url": "https://www.tsbev.de/", "note": "Scottish Target Shooting"},
+  {"name": "ISSF Junior World Cup Shotgun", "date": "2026-09-12", "endDate": "2026-09-20", "location": "Porpetto, Italy", "discipline": "Clay", "country": "IT", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Final Briefing Session", "date": "2026-09-12", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "English Sporting Home International 2026", "date": "2026-09-12", "location": "Culbann CPC, Portglenone, Northern Ireland", "discipline": "Clay", "country": "GB", "url": "https://www.cpsa.co.uk", "note": "CPSA · Home International"},
+  {"name": "Membership Assessment", "date": "2026-09-13", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 2", "date": "2026-09-14", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Masped Cup 10 - 25 - 50m", "date": "2026-09-15", "endDate": "2026-09-19", "location": "Budapest, Hungary", "discipline": "Multi", "country": "HU", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Humane Animal Dispatch Award - Marford Mill, Wrexham", "date": "2026-09-15", "location": "BASC Head Office, Rossett Wrexham", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Royal Agricultural University, Gloucestershire", "date": "2026-09-16", "endDate": "2026-09-19", "location": "Royal Agricultural University, Trent Lodge, Stroud Road, Cirencester, Gloucestershire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Wild Boar Certificate – Marford Mill, Wrexham", "date": "2026-09-16", "endDate": "2026-09-17", "location": "BASC Head Office, Marford Mill, Rossett, Wrexham", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Colliton Barton, Devon", "date": "2026-09-17", "endDate": "2026-09-20", "location": "Colliton Barton, Broadhembury, Honiton, Devon", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Horncastle, Lincolnshire", "date": "2026-09-17", "endDate": "2026-09-20", "location": "Roughton Village Hall, Main Road, Roughton, Lincolnshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Wadhurst, East Sussex", "date": "2026-09-17", "endDate": "2026-09-20", "location": "Wadhurst Park, The New House, Wadhurst, East Sussex", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Grey Squirrel Trapping & Dispatch - Bury St. Edmunds", "date": "2026-09-17", "location": "The Old Granary, Bury St. Edmunds Suffolk", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 - Clynderwen Community Hall, Dyfed", "date": "2026-09-17", "location": "Clynderwen Community Hall, Dyfed", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Nationals 2026", "date": "2026-09-18", "endDate": "2026-09-20", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Mink Trapping & Dispatch – Bury St. Edmunds", "date": "2026-09-18", "location": "The Old Granary, Bury St. Edmunds Suffolk", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Small Game Meat Hygiene - Marford Mill, Wrexham", "date": "2026-09-18", "location": "BASC Head Office, Rossett Wrexham", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Game Shooter Certificate 1 – BASC Scotland, Trochry", "date": "2026-09-19", "endDate": "2026-09-20", "location": "BASC Scotland Centre, Trochry, Dunkeld, Perthshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 3", "date": "2026-09-19", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "20th Asian Games", "date": "2026-09-20", "endDate": "2026-10-02", "location": "Aichi-Nagoya, Japan", "discipline": "Multi", "country": "GB", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "2026 Club Shoot – English Sporting Clay Shoots", "date": "2026-09-20", "location": "Bisley Shooting Ground, Surrey", "discipline": "Clay", "country": "GB", "url": "https://www.bisleyshooting.com/", "note": "Bisley Shooting Ground"},
+  {"name": "Deer Stalking Certificate 1, Assessment only - Royal Agricultural University, Gloucestershire", "date": "2026-09-20", "location": "Royal Agricultural University, Cirencester Gloucestershire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Thoresby Estate, Nottingham", "date": "2026-09-21", "endDate": "2026-09-24", "location": "Thoresby Estate, Perlethorpe Village Hall, Ollerton, Nottinghamshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1, assessment only - Colliton Barton, Devon", "date": "2026-09-21", "location": "Colliton Barton, Honiton Devon", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Wild Boar Certificate – Clynderwen Community Hall, Dyfed", "date": "2026-09-22", "endDate": "2026-09-23", "location": "Clynderwen Community Hall, Clynderwen, Dyfed", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Shooting Club - Wednesday 23rd September 2026", "date": "2026-09-23", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Firearms Awareness Training (Rifle) - Worthing, West Sussex", "date": "2026-09-23", "location": "Southdown Gun Club, Findon West Sussex", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Chedington, Dorset", "date": "2026-09-24", "endDate": "2026-09-27", "location": "Chedington, Beaminster, Dorset", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 - Blue Hills Farm, Bradford", "date": "2026-09-24", "location": "Blue Hills Farm, Bradford West Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 - Worthing, West Sussex", "date": "2026-09-24", "location": "Southdown Gun Club, Findon West Sussex", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Club Instructor (2-day)", "date": "2026-09-26", "endDate": "2026-09-27", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 4", "date": "2026-09-26", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "European Championship Shotgun", "date": "2026-09-27", "endDate": "2026-10-13", "location": "Athens, Greece", "discipline": "Clay", "country": "GR", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Module 1", "date": "2026-09-27", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Deer Stalking Certificate 1 – Clynderwen Community Hall, Dyfed", "date": "2026-09-28", "endDate": "2026-10-01", "location": "Clynderwen Community Hall, Clynderwen, Dyfed", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1, Assessment only - Chedington, Dorset", "date": "2026-09-28", "location": "Chedington, Dorset", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1, Assessment only - Thoresby Estate, Nottingham", "date": "2026-09-29", "location": "Thoresby Estate, Ollerton Nottinghamshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Worthing, West Sussex", "date": "2026-10-01", "endDate": "2026-10-04", "location": "Southdown Gun Club, Muntham Farm, Findon, West Sussex", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Target Shotgun Festival - Autumn 2026", "date": "2026-10-03", "endDate": "2026-10-04", "location": "National Shooting Centre, Bisley", "discipline": "Clay", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Shooting Club - Saturday 3rd October 2026", "date": "2026-10-03", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 2", "date": "2026-10-03", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Final Briefing Session", "date": "2026-10-04", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Black Powder Certification", "date": "2026-10-04", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Deer Stalking Certificate 1, Assessment only – Blue Hills Farm, Bradford", "date": "2026-10-05", "location": "Blue Hills Farm, Bradford West Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Mink Trapping & Dispatch – BASC Scotland, Trochry", "date": "2026-10-05", "location": "BASC Scotland Centre, Dunkeld Perthshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – High Leas Farm, Whitby", "date": "2026-10-05", "endDate": "2026-10-08", "location": "High Leas Farm, Lowe Lane, Whitby, North Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Hand Loading Course (2-day)", "date": "2026-10-05", "endDate": "2026-10-06", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "BASC Shotgun Safety Officer – DBC Leisure, Gloucestershire", "date": "2026-10-06", "location": "DBC Leisure, St. Briavels, Lydney Gloucestershire", "discipline": "Clay", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Grey Squirrel Trapping & Dispatch – Houston’s Mill, Co. Antrim", "date": "2026-10-06", "location": "Houston’s Mill, Broughshane Co. Antrim", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 – Chippenham Park, Cambridge", "date": "2026-10-06", "location": "High Park Lodge, Chippenham Eley, Cambridge", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – Blue Hills Farm, Bradford", "date": "2026-10-07", "endDate": "2026-10-10", "location": "Blue Hills Farm, Birkenshaw, Bradford, West Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "ISSF World Cup Rifle / Pistol", "date": "2026-10-08", "endDate": "2026-10-16", "location": "Cairo, Egypt", "discipline": "Multi", "country": "EG", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Pre DSC1 – Horncastle, Lincolnshire", "date": "2026-10-09", "location": "Roughton Village Hall, Roughton Lincolnshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Shotgun Coach Foundation Day - Park Lodge Shooting School, East Yorkshire", "date": "2026-10-09", "location": "Park Lodge Shooting School, West Cowick Goole", "discipline": "Clay", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "European TR Long Range Championship 2026", "date": "2026-10-10", "endDate": "2026-10-11", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Membership Assessment", "date": "2026-10-10", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 3", "date": "2026-10-10", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Carcass & Butchery - Cheshire Wild Venison, Cheshire", "date": "2026-10-10", "location": "Cheshire Wild Venison, Meadow Lane, Ellesmere Port Cheshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Carcass & Butchery - Talladh-A-Bheithe Estate, Perthshire", "date": "2026-10-11", "location": "Talladh-a-Bheithe Estate, Rannoch by Pitlochry Perthshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Basic Metallic Cartridge Reloading – Thoresby Estate, Nottingham", "date": "2026-10-12", "endDate": "2026-10-13", "location": "Thoresby Estate, Perlethorpe Village Hall, Ollerton, Nottinghamshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Grey Squirrel Trapping & Dispatch - Houston's Mill, Co. Antrim", "date": "2026-10-14", "location": "Houston’s Mill, Broughshane Co. Antrim", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Grey Squirrel Trapping & Dispatch - Thoresby Estate, Nottingham", "date": "2026-10-14", "location": "Thoresby Estate, Ollerton Nottinghamshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Advanced Airgun Hunter - Worthing, West Sussex", "date": "2026-10-15", "location": "Southdown Gun Club, Findon West Sussex", "discipline": "Airgun", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Mink Trapping & Dispatch - Thoresby Estate, Nottingham", "date": "2026-10-15", "location": "Thoresby Estate, Ollerton Nottinghamshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Trafalgar Meeting 2026", "date": "2026-10-17", "endDate": "2026-10-18", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Airgun Club Safety Officer - Worthing, West Sussex", "date": "2026-10-17", "location": "Southdown Gun Club, Findon West Sussex", "discipline": "Airgun", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "2026 Club Shoot – English Sporting Clay Shoots", "date": "2026-10-18", "location": "Bisley Shooting Ground, Surrey", "discipline": "Clay", "country": "GB", "url": "https://www.bisleyshooting.com/", "note": "Bisley Shooting Ground"},
+  {"name": "Firearms Awareness Training (Rifle) - Blue Hills Farm, Bradford", "date": "2026-10-18", "location": "Blue Hills Farm, Bradford West Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Firearms Awareness Training (Rifle) - Bolton Hall Estate, Clitheroe", "date": "2026-10-18", "location": "Bolton Hall, Ribble Valley Lancashire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "This exciting new course is designed to equip the candidate with the knowledge and skills required to undertake basic metallic cartridge reloading. It is an ideal introduction for the newcomer to reloading.", "date": "2026-10-19", "endDate": "2026-10-22", "location": "Buckland Filleigh Village Hall, Buckland Filleigh, Beaworthy, Devon", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 - BASC Scotland, Trochry", "date": "2026-10-19", "location": "BASC Scotland Centre, Dunkeld Perthshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1 – BASC Scotland, Trochry", "date": "2026-10-20", "endDate": "2026-10-23", "location": "BASC Scotland Centre, Trochry, Dunkeld, Perthshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Lowland Intermediate Deer Course – High Leas Farm, Whitby", "date": "2026-10-21", "endDate": "2026-10-22", "location": "High Leas Farm, Lowe Lane, Whitby, North Yorkshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Bisley Open Day (Clay Shooting)", "date": "2026-10-21", "location": "Bisley Shooting Ground, Surrey", "discipline": "Clay", "country": "GB", "url": "https://www.bisleyshooting.com/", "note": "Bisley Shooting Ground"},
+  {"name": "Wild Boar Certificate – BASC Scotland, Trochry", "date": "2026-10-24", "endDate": "2026-10-25", "location": "BASC Scotland Centre, Trochry, Dunkeld, Perthshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "RSO Course (2-day)", "date": "2026-10-24", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 4", "date": "2026-10-24", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 1", "date": "2026-10-25", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Deer Stalking Certificate 1, Assessment only - BASC Scotland, Trochry", "date": "2026-10-26", "location": "BASC Scotland Centre, Dunkeld Perthshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "FISU World University Championship", "date": "2026-10-27", "endDate": "2026-10-31", "location": "New Taipei, Chinese Taipei", "discipline": "Multi", "country": "GB", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Airgun Club Safety Officer - BASC Scotland, Trochry", "date": "2026-10-27", "location": "BASC Scotland Centre, Dunkeld Perthshire", "discipline": "Airgun", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pest & Predator Night Shooting Certificate – BASC Scotland, Trochry", "date": "2026-10-28", "endDate": "2026-10-29", "location": "BASC Scotland Centre, Trochry, Dunkeld, Perthshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "DMQ Night Shooting Certificate – BASC Scotland, Trochry", "date": "2026-10-30", "endDate": "2026-10-31", "location": "BASC Scotland Centre, Trochry, Dunkeld, Perthshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 2", "date": "2026-10-31", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Final Briefing Session", "date": "2026-10-31", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "ISSF World Championship Rifle / Pistol / Shotgun", "date": "2026-11-01", "endDate": "2026-11-15", "location": "Doha, Qatar", "discipline": "Multi", "country": "QA", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Module 3", "date": "2026-11-01", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Wild Boar Certificate – Thoresby Estate, Nottingham", "date": "2026-11-02", "endDate": "2026-11-03", "location": "Thoresby Estate, Perlethorpe Village Hall, Ollerton, Nottinghamshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Pre DSC1 - Bolton Hall Estate, Clitheroe", "date": "2026-11-03", "location": "Bolton Hall, Ribble Valley Lancashire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Deer Stalking Certificate 1, Assessment only – Royal Agricultural University, Gloucestershire", "date": "2026-11-04", "location": "Royal Agricultural University, Cirencester Gloucestershire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Lowland Intermediate Deer Course – Chippenham Park, Cambridge", "date": "2026-11-05", "endDate": "2026-11-06", "location": "High Park Lodge, Chippenham Park, Chippenham, Eley, Cambridge", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Airgun Instructor – DBC Leisure, Gloucestershire", "date": "2026-11-06", "location": "DBC Leisure, St. Briavels, Lydney Gloucestershire", "discipline": "Airgun", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Lowland Intermediate Deer Course – Baronscourt Estate, Co. Tyrone", "date": "2026-11-06", "endDate": "2026-11-07", "location": "Baronscourt Estate, Baronscourt Road, Newtownstewart, Omagh", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 4", "date": "2026-11-07", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Membership Assessment", "date": "2026-11-07", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 1", "date": "2026-11-08", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "BASC Shotgun Safety Officer – DBC Leisure, Gloucestershire", "date": "2026-11-09", "location": "DBC Leisure, St. Briavels, Lydney Gloucestershire", "discipline": "Clay", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "30th International Competition of Olimpic Hopes Samorin", "date": "2026-11-13", "endDate": "2026-11-15", "location": "Samorin, Slovakia", "discipline": "Multi", "country": "GB", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Module 2", "date": "2026-11-14", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "RSO Course (2-day)", "date": "2026-11-14", "endDate": "2026-11-15", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 3", "date": "2026-11-15", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "2026 Club Shoot – English Sporting Clay Shoots", "date": "2026-11-15", "location": "Bisley Shooting Ground, Surrey", "discipline": "Clay", "country": "GB", "url": "https://www.bisleyshooting.com/", "note": "Bisley Shooting Ground"},
+  {"name": "Lowland Intermediate Deer Course – Thoresby Estate, Nottingham", "date": "2026-11-18", "endDate": "2026-11-19", "location": "Thoresby Estate, Perlethorpe Village Hall, Ollerton, Nottinghamshire", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Hungarian Open 10m", "date": "2026-11-18", "endDate": "2026-11-21", "location": "Budapest, Hungary", "discipline": "Multi", "country": "HU", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Shooting Club - Saturday 21st November 2026", "date": "2026-11-21", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Hand Loading Course (2-day)", "date": "2026-11-21", "endDate": "2026-11-22", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Carcass & Butchery - Greenlee, Northumberland", "date": "2026-11-21", "location": "Hill House Field Cottage, Haltwhistle Northumberland", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Carcass & Butchery - Woodeaton, Oxfordshire", "date": "2026-11-21", "location": "Wild Venison & Game, Woodeaton Oxford", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 4", "date": "2026-11-22", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "DMQ Night Shooting Certificate – Elveden Estate, Norfolk", "date": "2026-11-24", "endDate": "2026-11-25", "location": "Elveden Estate, The Game Larder, 48 London Road, Elveden, Suffolk", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "DMQ Night Shooting Certificate – Thoresby Estate, Nottingham", "date": "2026-11-26", "endDate": "2026-11-27", "location": "Thoresby Estate, Perlethorpe Village Hall, Ollerton, Nottinghamshire", "discipline": "Multi", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Carcass & Butchery - High Leas Farm, Whitby, North Yorkshire", "date": "2026-11-26", "location": "High Leas Farm, Whitby North Yorkshire", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Carcass & Butchery, Horsham, West Sussex", "date": "2026-11-26", "location": "Knepp Estate Deer Larder, Horsham West Sussex", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "XII Walther Youth Cup & GP Smederevo", "date": "2026-11-27", "endDate": "2026-11-29", "location": "Smederevo, Serbia", "discipline": "Multi", "country": "RS", "url": "https://www.issf-sports.org/", "note": "ISSF"},
+  {"name": "Target Shotgun Skills Course - Nov 2026", "date": "2026-11-28", "location": "National Shooting Centre, Bisley", "discipline": "Clay", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Club Instructor (2-day)", "date": "2026-11-28", "endDate": "2026-11-29", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 1", "date": "2026-11-28", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Module 2", "date": "2026-11-29", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Lowland Intermediate Deer Course – Elveden Estate, Norfolk", "date": "2026-12-01", "endDate": "2026-12-02", "location": "Elveden Estate, The Game Larder, 48 London Road, Elveden, Suffolk", "discipline": "Rifle", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 3", "date": "2026-12-05", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "RSO Course (2-day)", "date": "2026-12-05", "endDate": "2026-12-06", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Airgun Club Safety Officer – DBC Leisure, Gloucestershire", "date": "2026-12-06", "location": "DBC Leisure, St. Briavels, Lydney Gloucestershire", "discipline": "Airgun", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Module 4", "date": "2026-12-06", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Shooting Club - Wednesday 9th December 2026", "date": "2026-12-09", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Carcass & Butchery - Horsham, West Sussex", "date": "2026-12-11", "location": "Knepp Estate Deer Larder, Horsham West Sussex", "discipline": "Game", "country": "GB", "url": "https://basc.org.uk", "note": "BASC"},
+  {"name": "Membership Assessment", "date": "2026-12-12", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "Final Briefing Session", "date": "2026-12-13", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "2026 Club Shoot – English Sporting Clay Shoots", "date": "2026-12-13", "location": "Bisley Shooting Ground, Surrey", "discipline": "Clay", "country": "GB", "url": "https://www.bisleyshooting.com/", "note": "Bisley Shooting Ground"},
+  {"name": "Shooting Club - Saturday19th December 2026", "date": "2026-12-19", "location": "National Shooting Centre, Bisley", "discipline": "Rifle", "country": "GB", "url": "https://online.nra.org.uk/", "note": "NRA"},
+  {"name": "World English Sporting Clays Championship 2027", "date": "2027-07-17", "endDate": "2027-07-24", "location": "E.J. Churchill Shooting Ground, Buckinghamshire", "discipline": "Clay", "country": "GB", "url": "https://englishsportingclays.co.uk/english-sporting/world-championship", "note": "World Championship hosted in England · entries open 1 Dec"}
+];
+
+/* ================= no need to edit below this line ================= */
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DOWS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const DISCIPLINES = ["All","Clay","Game","Rifle","Pistol","Airgun","Show","Multi"];
+
+/* Country names for anything that appears in the events list */
+const COUNTRY_NAMES = {
+  GB:"United Kingdom", IE:"Ireland", FR:"France", DE:"Germany", IT:"Italy", ES:"Spain",
+  US:"United States", CY:"Cyprus", FI:"Finland", HR:"Croatia", EG:"Egypt", QA:"Qatar",
+  PE:"Peru", MA:"Morocco", AZ:"Azerbaijan", KZ:"Kazakhstan", IN:"India", KR:"South Korea",
+  CN:"China", BR:"Brazil", CL:"Chile", MX:"Mexico", AU:"Australia", CA:"Canada",
+  TR:"T\u00fcrkiye", GR:"Greece", HU:"Hungary", PL:"Poland", CZ:"Czechia", SI:"Slovenia",
+  RS:"Serbia", CH:"Switzerland", AT:"Austria", NO:"Norway", SE:"Sweden", DK:"Denmark", PT:"Portugal"
+};
+
+/* Countries shown in the dropdown but not yet covered.
+   EDIT: move a code out of here once you're listing real events for it. */
+const ROADMAP_COUNTRIES = ["FR","DE","ES","US"];
+
+const today = new Date(); today.setHours(0,0,0,0);
+const soonCutoff = new Date(today); soonCutoff.setDate(soonCutoff.getDate()+7);
+
+document.getElementById("yearLabel").textContent = today.getFullYear();
+document.getElementById("footYear").textContent = today.getFullYear();
+
+if(HERO_IMAGE){
+  const hero = document.getElementById("hero");
+  hero.style.backgroundImage = `url("${HERO_IMAGE}")`;
+  hero.style.display = "block";
+  hero.setAttribute("aria-label", HERO_ALT);
+}
+
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+
+const upcoming = EVENTS
+  .map(e => ({...e, start: parse(e.date), end: e.endDate ? parse(e.endDate) : parse(e.date)}))
+  .filter(e => e.end >= today)
+  .sort((a,b) => a.start - b.start);
+
+let activeFilter = "All";
+let activeCountry = "GB";
+let activeYear = "all";
+
+function fmtRange(e){
+  if(!e.endDate) return null;
+  const sameMonth = e.start.getMonth() === e.end.getMonth();
+  const s = e.start.getDate();
+  const t = e.end.getDate();
+  return sameMonth
+    ? `${s}–${t} ${MONTHS[e.start.getMonth()]}`
+    : `${s} ${MONTHS[e.start.getMonth()]} – ${t} ${MONTHS[e.end.getMonth()]}`;
+}
+
+function render(){
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  const roadmap = ROADMAP_COUNTRIES.includes(activeCountry);
+  const shown = roadmap ? [] : upcoming.filter(e =>
+    (e.country || "GB") === activeCountry &&
+    (activeFilter === "All" || e.discipline === activeFilter) &&
+    (activeYear === "all" || e.start.getFullYear() === Number(activeYear)));
+
+  if(roadmap){
+    list.innerHTML = `<p class="soonnote"><strong>${COUNTRY_NAMES[activeCountry]} \u2014 coming soon</strong>
+      MyShoots\u00ae is launching in the UK first. ${COUNTRY_NAMES[activeCountry]} is on our expansion roadmap \u2014
+      if you run events there and would like to be listed when we arrive, we\u2019d love to hear from you.</p>`;
+    return;
+  }
+
+  if(shown.length === 0){
+    list.innerHTML = `<p class="empty">No upcoming ${activeFilter === "All" ? "" : activeFilter.toLowerCase() + " "}events listed in ${COUNTRY_NAMES[activeCountry] || activeCountry}${activeYear === "all" ? "" : " for " + activeYear} yet \u2014 check back soon.</p>`;
+    return;
+  }
+
+  let currentKey = "";
+  let monthEl = null, count = 0, countEl = null;
+
+  shown.forEach(e => {
+    const key = e.start.getFullYear() + "-" + e.start.getMonth();
+    if(key !== currentKey){
+      if(countEl) countEl.textContent = count + (count === 1 ? " event" : " events");
+      currentKey = key; count = 0;
+      monthEl = document.createElement("h2");
+      monthEl.className = "month";
+      monthEl.innerHTML = `<span>${MONTHS[e.start.getMonth()]} ${e.start.getFullYear()}</span><small></small>`;
+      countEl = monthEl.querySelector("small");
+      list.appendChild(monthEl);
+    }
+    count++;
+
+    const isSoon = e.start >= today && e.start <= soonCutoff;
+    const range = fmtRange(e);
+
+    const card = document.createElement(e.url ? "a" : "div");
+    card.className = "event";
+    if(e.url){ card.href = e.url; card.target = "_blank"; card.rel = "noopener"; }
+    card.innerHTML = `
+      <div class="datebox" aria-hidden="true">
+        <span class="day">${e.start.getDate()}</span>
+        <span class="dow">${DOWS[e.start.getDay()]}</span>
+      </div>
+      <div class="detail">
+        <div class="tagrow">
+          <span class="tag">${e.discipline}</span>
+          ${isSoon ? '<span class="soon">This week</span>' : ""}
+        </div>
+        <div class="name">${e.name}</div>
+        <div class="meta">
+          ${range ? range + " · " : ""}<span class="loc">${e.location}</span>
+        </div>
+        ${e.note ? `<div class="note">${e.note}</div>` : ""}
+      </div>`;
+    list.appendChild(card);
+  });
+  if(countEl) countEl.textContent = count + (count === 1 ? " event" : " events");
+}
+
+function buildFilters(){
+  const nav = document.getElementById("filters");
+  DISCIPLINES.forEach(d => {
+    const b = document.createElement("button");
+    b.textContent = d;
+    b.setAttribute("aria-pressed", d === activeFilter);
+    b.addEventListener("click", () => {
+      activeFilter = d;
+      nav.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.textContent === d));
+      render();
+    });
+    nav.appendChild(b);
+  });
+}
+
+function buildYears(){
+  const sel = document.getElementById("yearSelect");
+  const years = [...new Set(upcoming
+    .filter(e => (e.country||"GB") === activeCountry)
+    .map(e => e.start.getFullYear()))].sort();
+  sel.innerHTML = "";
+  const optAll = document.createElement("option");
+  optAll.value = "all"; optAll.textContent = "All years";
+  sel.appendChild(optAll);
+  years.forEach(y => {
+    const count = upcoming.filter(e => (e.country||"GB") === activeCountry && e.start.getFullYear() === y).length;
+    const o = document.createElement("option");
+    o.value = String(y); o.textContent = `${y} (${count})`;
+    sel.appendChild(o);
+  });
+  if(!years.map(String).includes(activeYear)) activeYear = "all";
+  sel.value = activeYear;
+}
+
+function buildCountries(){
+  const sel = document.getElementById("countrySelect");
+  const present = [...new Set(upcoming.map(e => e.country || "GB"))];
+  const all = [...new Set([...present, ...ROADMAP_COUNTRIES])]
+    .sort((a,b) => a === "GB" ? -1 : b === "GB" ? 1 :
+      (COUNTRY_NAMES[a]||a).localeCompare(COUNTRY_NAMES[b]||b));
+  all.forEach(code => {
+    const count = upcoming.filter(e => (e.country||"GB") === code).length;
+    const o = document.createElement("option");
+    o.value = code;
+    o.textContent = (COUNTRY_NAMES[code] || code) + (count ? ` (${count})` : " \u2014 coming soon");
+    sel.appendChild(o);
+  });
+  sel.value = activeCountry;
+  sel.addEventListener("change", () => { activeCountry = sel.value; buildYears(); render(); });
+}
+
+buildCountries();
+buildYears();
+buildFilters();
+document.getElementById("yearSelect").addEventListener("change", e => {
+  activeYear = e.target.value; render();
+});
+render();
+</script>
+</body>
+</html>
