@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UK Shooting Sports Calendar | MyShoots®</title>
-<meta name="description" content="Upcoming UK shooting sports events — clay, game, rifle, pistol and shows. Curated by MyShoots®.">
+<title>UK Shooting Sports Calendar & Founding Partner Network | MyShoots®</title>
+<meta name="description" content="The operating system for UK shooting sports — calendar, compliance, and community, powered by Founding Partners.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,6 +16,8 @@
     --scarlet:#C11922;
     --white:#FFFFFF;
     --ink:#1C2A25;
+    --gold:#C8A84B;
+    --light-grey:#F5F5F5;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -26,13 +28,32 @@
     line-height:1.55;
     font-size:16px;
   }
-  a{color:inherit}
+  a{color:inherit;text-decoration:none}
 
-  /* ---------- Masthead ---------- */
+  /* ---------- NAV ---------- */
+  nav.header-nav{
+    background:var(--green);
+    padding:12px 20px;
+    text-align:center;
+    display:flex;justify-content:center;gap:24px;flex-wrap:wrap;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  nav.header-nav a{
+    color:var(--white);
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    transition:color 0.2s;
+  }
+  nav.header-nav a:hover{color:var(--gold)}
+  nav.header-nav a.active{color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:2px}
+
+  /* ---------- MASTHEAD ---------- */
   header{
     background:var(--green);
     color:var(--white);
-    padding:34px 20px 30px;
+    padding:30px 20px 26px;
     text-align:center;
   }
   .brand{
@@ -59,17 +80,97 @@
     max-width:520px;
     margin:0 auto;
   }
+  header p.sub-cta{
+    color:#CFE3D6;
+    font-size:14px;
+    max-width:520px;
+    margin:8px auto 0;
+  }
+  header p.sub-cta a{
+    color:var(--white);
+    font-weight:700;
+    text-decoration:underline;
+  }
+  header p.sub-cta a:hover{opacity:0.9}
 
-  /* ---------- Hero image (optional) ---------- */
+  /* ---------- HERO VALUE SECTION ---------- */
+  .hero-value{
+    background:var(--white);
+    border-bottom:3px solid var(--scarlet);
+    padding:40px 20px;
+    text-align:center;
+    max-width:100%;
+  }
+  .hero-value h2{
+    font-size:clamp(22px,5vw,32px);
+    font-weight:800;
+    color:var(--green);
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    margin-bottom:16px;
+    line-height:1.2;
+  }
+  .hero-value p{
+    font-size:15px;
+    color:#555;
+    max-width:620px;
+    margin:0 auto 24px;
+    line-height:1.6;
+  }
+  .funding-bar{
+    max-width:520px;
+    margin:0 auto 28px;
+    background:var(--light-grey);
+    border-radius:8px;
+    height:8px;
+    overflow:hidden;
+    border:1px solid #ddd;
+  }
+  .funding-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--green), var(--gold));
+    width:35%;
+    transition:width 0.3s ease;
+  }
+  .funding-text{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--pebble);
+    margin-bottom:12px;
+    letter-spacing:.05em;
+  }
+
+  /* ---------- CALENDAR HEADING ---------- */
+  /* ---------- PRO STRIP (below calendar title, above filters) ---------- */
+  .pro-strip{
+    background:var(--scarlet);
+    color:var(--white);
+    padding:6px 20px;
+  }
+  .pro-strip-content{
+    max-width:760px;
+    margin:0 auto;
+  }
+  .pro-strip a.pro-strip-link{
+    display:inline-block;
+    color:var(--white);
+    font-size:12px;
+    font-weight:600;
+    text-decoration:underline;
+    line-height:1.5;
+    transition:opacity 0.2s;
+  }
+  .pro-strip a.pro-strip-link:hover{opacity:0.85}
+
+  /* ---------- CALENDAR SECTION ---------- */
   .hero{
-    display:none;           /* shown automatically when HERO_IMAGE is set */
+    display:none;
     height:min(38vw,260px);
     background-size:cover;
     background-position:center;
     border-bottom:4px solid var(--green);
   }
 
-  /* ---------- Filters ---------- */
   .filters{
     position:sticky;top:0;z-index:5;
     background:var(--meadow);
@@ -96,9 +197,6 @@
   }
   .filters button:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
 
-
-
-  /* ---------- Club banner ---------- */
   .clubbanner{
     background:var(--green);
     text-align:center;
@@ -113,27 +211,26 @@
   .clubbanner a b{color:var(--white);text-decoration:underline}
   .clubbanner a:focus-visible{outline:3px solid var(--scarlet);outline-offset:3px}
 
-  /* ---------- Country select ---------- */
-  .countryrow{
-    display:flex;justify-content:center;align-items:center;gap:8px;
-    padding:12px 16px 4px;flex-wrap:wrap;
+  .filter-row{
+    display:flex;justify-content:center;align-items:center;gap:12px;
+    padding:12px 16px;flex-wrap:wrap;
   }
-  .countryrow label{
+  .filter-row label{
     font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--pebble);
   }
-  .countryrow select{
+  .filter-row select{
     font-family:inherit;font-weight:600;font-size:13.5px;color:var(--green);
     background:var(--white);border:1.5px solid var(--green);border-radius:999px;
     padding:8px 14px;cursor:pointer;max-width:260px;
   }
-  .countryrow select:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
+  .filter-row select:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
+
   .soonnote{
     text-align:center;color:var(--pebble);font-weight:600;font-size:13px;
     padding:40px 20px;max-width:520px;margin:0 auto;
   }
   .soonnote strong{color:var(--green);display:block;font-size:16px;margin-bottom:6px}
 
-  /* ---------- Free listings strip ---------- */
   .listings{
     background:var(--white);
     border:2px solid var(--green);
@@ -163,7 +260,6 @@
   .listings a.mail:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
   .listings small{display:block;margin-top:10px;color:var(--pebble);font-size:12px;line-height:1.5}
 
-  /* ---------- Event list ---------- */
   main{max-width:760px;margin:0 auto;padding:8px 16px 56px}
   .month{
     font-weight:800;
@@ -192,201 +288,265 @@
   a.event:hover .name, a.event:focus-visible .name{text-decoration:underline}
   a.event:focus-visible{outline:3px solid var(--scarlet);outline-offset:2px}
   .datebox{
-    flex:0 0 62px;
-    background:var(--meadow);
-    border:1.5px solid var(--green);
-    border-radius:8px;
+    flex-shrink:0;
     text-align:center;
-    padding:8px 4px;
-    align-self:flex-start;
+    width:50px;
   }
   .datebox .day{
-    display:block;font-weight:800;font-size:24px;line-height:1;color:var(--green);
+    display:block;
+    font-weight:800;
+    font-size:22px;
+    line-height:1;
+    color:var(--green);
   }
   .datebox .dow{
-    display:block;font-weight:600;font-size:10.5px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--pebble);margin-top:4px;
+    display:block;
+    font-weight:600;
+    font-size:11px;
+    color:var(--pebble);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-top:3px;
   }
-  .detail{min-width:0;flex:1}
-  .tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:5px;align-items:center}
+  .detail{flex:1;min-width:0}
+  .tagrow{
+    display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;
+  }
   .tag{
-    font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    display:inline-block;
+    background:var(--meadow);
     color:var(--green);
-    border:1px solid var(--pebble);
+    font-weight:700;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:4px 8px;
     border-radius:4px;
-    padding:2px 7px;
   }
-  .soon{
-    font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--white);
-    background:var(--scarlet);
-    border-radius:4px;
-    padding:3px 8px;
-  }
+  .soon{background:var(--scarlet);color:var(--white)!important}
   .name{
     font-weight:700;
-    font-size:16.5px;
-    color:var(--green);
-    line-height:1.3;
+    font-size:15px;
+    color:var(--ink);
+    margin-bottom:6px;
   }
   .meta{
     font-size:13px;
-    color:#5A6B63;
-    margin-top:3px;
+    color:#666;
+    line-height:1.4;
   }
-  .meta .loc::before{content:"⌖ ";color:var(--pebble)}
+  .loc{font-weight:600;color:var(--pebble)}
   .note{
-    font-size:12.5px;
-    color:var(--pebble);
-    margin-top:5px;
-    font-weight:500;
+    font-size:12px;
+    color:var(--scarlet);
+    font-weight:600;
+    margin-top:6px;
   }
   .empty{
     text-align:center;
+    padding:60px 20px;
     color:var(--pebble);
     font-weight:600;
-    padding:60px 20px;
+    font-size:14px;
   }
 
-  /* ---------- Founding Pro CTA ---------- */
-  .cta{
+  /* ---------- POWERED BY PARTNERS SECTION ---------- */
+  .powered-by{
+    background:var(--white);
+    border-top:3px solid var(--scarlet);
+    padding:40px 20px;
+    text-align:center;
+  }
+  .powered-by h2{
+    font-size:clamp(16px,3vw,20px);
+    font-weight:800;
+    color:var(--green);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:20px;
+  }
+  .partner-logos{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+  }
+  .partner-placeholder{
+    width:100px;
+    height:60px;
+    background:var(--light-grey);
+    border:2px dashed var(--pebble);
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    color:var(--pebble);
+    font-weight:600;
+  }
+  .powered-by a{
+    display:inline-block;
+    background:var(--green);
+    color:var(--white);
+    font-weight:700;
+    font-size:13.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:12px 24px;
+    border-radius:8px;
+    transition:background 0.2s;
+  }
+  .powered-by a:hover{background:var(--scarlet)}
+
+  /* ---------- FOOTER CTA ---------- */
+  .footer-cta{
     background:var(--green);
     color:var(--white);
     text-align:center;
-    padding:44px 20px 50px;
+    padding:48px 20px;
+    margin-top:60px;
   }
-  .cta .eyebrow{
-    font-weight:700;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--pebble);
+  .footer-cta h2{
+    font-size:clamp(20px,4vw,28px);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    margin-bottom:12px;
   }
-  .cta h2{
-    font-weight:800;font-size:clamp(20px,4.5vw,30px);
-    text-transform:uppercase;margin:10px 0 8px;
+  .footer-cta p{
+    font-size:15px;
+    margin-bottom:24px;
+    max-width:520px;
+    margin-left:auto;
+    margin-right:auto;
+    line-height:1.6;
   }
-  .cta p{color:#CFE3D6;font-size:14px;max-width:460px;margin:0 auto 22px}
-  .cta .price{color:var(--white);font-weight:700}
-  .cta a.button{
+  .footer-cta a{
     display:inline-block;
     background:var(--scarlet);
     color:var(--white);
     font-weight:700;
-    font-size:14px;
-    letter-spacing:.08em;
+    font-size:13.5px;
+    letter-spacing:.06em;
     text-transform:uppercase;
-    text-decoration:none;
-    border-radius:8px;
     padding:14px 28px;
+    border-radius:8px;
+    transition:background 0.2s ease;
   }
-  .cta a.button:focus-visible{outline:3px solid var(--meadow);outline-offset:3px}
-  .cta small{display:block;margin-top:12px;color:#9DBBA9;font-size:12px}
+  .footer-cta a:hover{background:#a01620}
+  .footer-cta a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
-  footer{
+  .footer-legal{
+    background:var(--ink);
+    color:#ccc;
     text-align:center;
-    font-size:12px;
-    color:var(--pebble);
-    padding:22px 16px 34px;
+    padding:24px 20px;
+    font-size:11px;
+    letter-spacing:.04em;
   }
+  .footer-legal a{color:#aaa;text-decoration:underline}
 
-  @media (max-width:420px){
-    .event{gap:12px;padding:12px}
-    .datebox{flex-basis:54px}
-    .datebox .day{font-size:21px}
-    .name{font-size:15px}
-  }
-  @media (prefers-reduced-motion:no-preference){
-    .event{transition:transform .15s ease}
-    a.event:hover{transform:translateY(-2px)}
+  @media (max-width: 640px) {
+    header h1{font-size:24px}
+    .hero-value h2{font-size:18px}
+    nav.header-nav{gap:12px}
+    .partner-logos{gap:12px}
+    .partner-placeholder{width:80px;height:50px}
   }
 </style>
 </head>
 <body>
 
+<!-- TOP NAV -->
+<nav class="header-nav">
+  <a href="#calendar" class="active">Calendar</a>
+  <a href="/about">About</a>
+  <a href="/partners">Founding Partners</a>
+  <a href="/pro">Founding Pro</a>
+  <a href="mailto:georgina@myshoots.io">Contact</a>
+</nav>
+
+<!-- MASTHEAD -->
 <header>
   <div class="brand">MyShoots<span class="reg">®</span></div>
-  <h1>UK Shooting Sports<br>Calendar <span class="year" id="yearLabel"></span></h1>
+  <h1>UK Shooting Sports Calendar <span class="year" id="yearLabel"></span></h1>
   <p class="sub">Upcoming shoots, competitions and shows — clay, game, rifle, pistol and more. Curated by MyShoots®.</p>
+  <p class="sub-cta"><a href="#listings">Run a club or ground? List your events free →</a></p>
 </header>
 
-<div class="hero" id="hero" role="img" aria-label=""></div>
+<!-- CALENDAR SECTION STARTS HERE -->
+<div id="calendar"></div>
+<div id="hero" class="hero"></div>
+
+<!-- FOUNDING PRO STRIP (below calendar title, above filters) -->
+<div class="pro-strip">
+  <div class="pro-strip-content">
+    <a href="/pro" class="pro-strip-link"><strong>Join Founding Pro:</strong> Verified shooter profile + live scoring · £1.99/month (locked 12 months) →</a>
+  </div>
+</div>
 
 <div class="clubbanner">
-  <a href="#listings">Run a club or ground? <b>List your events free &rarr;</b></a>
+  <a href="mailto:georgina@myshoots.io">MyShoots® Pilot Clubs are <b>now open for applications</b> — email to join free.</a>
 </div>
 
-<div class="countryrow">
-  <label for="countrySelect">Country</label>
-  <select id="countrySelect" aria-label="Choose a country"></select>
-  <label for="yearSelect">Year</label>
-  <select id="yearSelect" aria-label="Choose a year"></select>
-</div>
+<div class="filters" id="filters"></div>
 
-<nav class="filters" id="filters" aria-label="Filter events by discipline"></nav>
+<div class="filter-row">
+  <label for="countrySelect">Show events in:</label>
+  <select id="countrySelect"></select>
+  <label for="yearSelect">Year:</label>
+  <select id="yearSelect"></select>
+  <label for="monthSelect">Month:</label>
+  <select id="monthSelect"><option value="all">All months</option></select>
+</div>
 
 <main id="list"></main>
 
+<!-- SUBMIT YOUR EVENT SECTION -->
 <div class="listings" id="listings">
-  <div class="eyebrow">Free for clubs &amp; grounds</div>
-  <h3>List your events free</h3>
-  <p>Running a shoot, competition or open day? Get it in front of shooters across the country — free, with no catch and no membership required.</p>
+  <div class="eyebrow">Submit Your Event</div>
+  <h3>List Your Shoot or Event</h3>
+  <p>Is your club hosting a clay, game, rifle, pistol or airgun event?</p>
   <div class="how">
-    <b>Email us with:</b> event name · date(s) · venue and county · discipline · booking link · one line about the event.
+    <b>Listings are curated monthly and published on the 1st.</b> Send us: event name, date, location, discipline, and registration link before the end of each month to appear in the next update.
   </div>
-  <a class="mail" href="mailto:info@myshoots.io?subject=Calendar%20listing%20request">Email your listing</a>
-  <small>Listings are updated monthly and published on the 1st. Send yours before the end of the month to appear in the next update. We may decline or remove listings at our discretion.</small>
+  <a href="mailto:georgina@myshoots.io?subject=Submit%20Shooting%20Event%20Listing" class="mail">Submit Event</a>
+  <small>We may decline or remove listings at our discretion. UK events prioritised.</small>
 </div>
 
-
-<p style="text-align:center;font-size:13px;color:#5A6B63;max-width:640px;margin:26px auto 0;padding:0 16px;">
-  Looking for a CPSA registered shoot near you? Search the full fixtures list at
-  <a href="https://www.cpsa.co.uk/events" target="_blank" rel="noopener" style="color:#12352B;font-weight:600;">cpsa.co.uk</a>.
-</p>
-
-<section class="cta">
-  <div class="eyebrow">Founding Pro</div>
-  <h2>Never miss a shoot</h2>
-  <p>Lock in MyShoots® Pro at <span class="price">£1.99/month for 12 months</span> before launch — standard price will be £4.99. No payment today, just secure your spot.</p>
-  <!-- EDIT: point this at your Pro signup page -->
-  <a class="button" href="https://www.myshoots.io/pro">Secure my founding rate</a>
-  <small>No card required · You're reserving your rate, nothing more</small>
+<!-- POWERED BY FOUNDING PARTNERS -->
+<section class="powered-by">
+  <h2>Powered by Founding Partners</h2>
+  <div class="partner-logos">
+    <div class="partner-placeholder">Club 1</div>
+    <div class="partner-placeholder">Brand 1</div>
+    <div class="partner-placeholder">Insurer 1</div>
+  </div>
+  <a href="/partners">Explore Partnership Opportunities</a>
 </section>
 
-<footer>
-  © <span id="footYear"></span> MySports Community Ltd · Company No. 15325915 · 128 City Road, London EC1V 2NX<br>
-  Listings are provided in good faith — always confirm details with the organiser.
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <h2>Become a Founding Partner</h2>
+  <p>Help build the infrastructure layer for UK shooting sports — and give your customers a year of MyShoots® Verified Pro at cost of partnership.</p>
+  <a href="/partners">View Partnership Tiers</a>
+</section>
+
+<footer class="footer-legal">
+  <p>MySports Community Ltd · Company No. 15325915 · Registered: 128 City Road, London EC1V 2NX<br>
+  UK TM 00003725185 · US TM 7,500,650 · <span id="footYear"></span></p>
 </footer>
 
 <script>
-/* ============================================================
-   HERO IMAGE (optional)
-   ------------------------------------------------------------
-   To show a full-width photo under the green masthead, put the
-   image's web address between the quotes below, e.g.
-     const HERO_IMAGE = "https://www.myshoots.io/images/ground.jpg";
-   Use a wide landscape photo you own the rights to (about
-   1600px wide works well). Leave it as "" to show no image.
-   ============================================================ */
+/* =============== CONFIG =============== */
 const HERO_IMAGE = "";
-const HERO_ALT = "Shooting ground"; // short description of the photo, for screen readers
+const HERO_ALT = "";
+const FUNDING_PERCENTAGE = 35; /* Backend build + architecture committed; raising for build completion, integration & team oversight */
+const FUNDING_TARGET_AMOUNT = "£110k"; /* V2 build + launch cost */
 
-/* ============================================================
-   HOW TO ADD OR EDIT EVENTS  (this is the only bit you touch)
-   ------------------------------------------------------------
-   Each event looks like this:
-
-   {
-     name: "Event name",
-     date: "2026-08-15",          // start date, YYYY-MM-DD
-     endDate: "2026-08-16",       // OPTIONAL — for multi-day events
-     location: "Ground name, County",
-     discipline: "Clay",          // Clay | Game | Rifle | Pistol | Airgun | Show | Multi
-     url: "https://...",          // OPTIONAL — event page link
-     note: "Entries close 1 Aug"  // OPTIONAL — short extra line
-   },
-
-   • Events in the past disappear automatically — no need to delete them.
-   • Keep the comma after each closing brace }.
-   • The examples below are PLACEHOLDERS — replace with real events.
-   ============================================================ */
-
+/* All 192 UK shooting events - full array from calendar */
 const EVENTS = [
   {"name": "ISSF World Cup Rifle / Pistol / Shotgun", "date": "2026-07-20", "endDate": "2026-07-29", "location": "Hangzhou, People's Republic of China", "discipline": "Multi", "country": "CN", "url": "https://www.issf-sports.org/", "note": "ISSF"},
   {"name": "Royal Welsh Show (BASC attending)", "date": "2026-07-20", "endDate": "2026-07-23", "location": "Royal Welsh Showground, Builth Wells, Powys", "discipline": "Show", "country": "GB", "url": "https://events.basc.org.uk/events/categories/game-fairs-and-shows/", "note": "Show · verify details"},
@@ -582,24 +742,21 @@ const EVENTS = [
   {"name": "World English Sporting Clays Championship 2027", "date": "2027-07-17", "endDate": "2027-07-24", "location": "E.J. Churchill Shooting Ground, Buckinghamshire", "discipline": "Clay", "country": "GB", "url": "https://englishsportingclays.co.uk/english-sporting/world-championship", "note": "World Championship hosted in England · entries open 1 Dec"}
 ];
 
-/* ================= no need to edit below this line ================= */
+/* =============== no need to edit below this line =============== */
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DOWS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const DISCIPLINES = ["All","Clay","Game","Rifle","Pistol","Airgun","Show","Multi"];
 
-/* Country names for anything that appears in the events list */
 const COUNTRY_NAMES = {
   GB:"United Kingdom", IE:"Ireland", FR:"France", DE:"Germany", IT:"Italy", ES:"Spain",
   US:"United States", CY:"Cyprus", FI:"Finland", HR:"Croatia", EG:"Egypt", QA:"Qatar",
   PE:"Peru", MA:"Morocco", AZ:"Azerbaijan", KZ:"Kazakhstan", IN:"India", KR:"South Korea",
   CN:"China", BR:"Brazil", CL:"Chile", MX:"Mexico", AU:"Australia", CA:"Canada",
-  TR:"T\u00fcrkiye", GR:"Greece", HU:"Hungary", PL:"Poland", CZ:"Czechia", SI:"Slovenia",
+  TR:"Türkiye", GR:"Greece", HU:"Hungary", PL:"Poland", CZ:"Czechia", SI:"Slovenia",
   RS:"Serbia", CH:"Switzerland", AT:"Austria", NO:"Norway", SE:"Sweden", DK:"Denmark", PT:"Portugal"
 };
 
-/* Countries shown in the dropdown but not yet covered.
-   EDIT: move a code out of here once you're listing real events for it. */
 const ROADMAP_COUNTRIES = ["FR","DE","ES","US"];
 
 const today = new Date(); today.setHours(0,0,0,0);
@@ -625,6 +782,7 @@ const upcoming = EVENTS
 let activeFilter = "All";
 let activeCountry = "GB";
 let activeYear = "all";
+let activeMonth = "all";
 
 function fmtRange(e){
   if(!e.endDate) return null;
@@ -643,17 +801,18 @@ function render(){
   const shown = roadmap ? [] : upcoming.filter(e =>
     (e.country || "GB") === activeCountry &&
     (activeFilter === "All" || e.discipline === activeFilter) &&
-    (activeYear === "all" || e.start.getFullYear() === Number(activeYear)));
+    (activeYear === "all" || e.start.getFullYear() === Number(activeYear)) &&
+    (activeMonth === "all" || e.start.getMonth() === Number(activeMonth)));
 
   if(roadmap){
-    list.innerHTML = `<p class="soonnote"><strong>${COUNTRY_NAMES[activeCountry]} \u2014 coming soon</strong>
-      MyShoots\u00ae is launching in the UK first. ${COUNTRY_NAMES[activeCountry]} is on our expansion roadmap \u2014
-      if you run events there and would like to be listed when we arrive, we\u2019d love to hear from you.</p>`;
+    list.innerHTML = `<p class="soonnote"><strong>${COUNTRY_NAMES[activeCountry]} — coming soon</strong>
+      MyShoots® is launching in the UK first. ${COUNTRY_NAMES[activeCountry]} is on our expansion roadmap —
+      if you run events there and would like to be listed when we arrive, we'd love to hear from you.</p>`;
     return;
   }
 
   if(shown.length === 0){
-    list.innerHTML = `<p class="empty">No upcoming ${activeFilter === "All" ? "" : activeFilter.toLowerCase() + " "}events listed in ${COUNTRY_NAMES[activeCountry] || activeCountry}${activeYear === "all" ? "" : " for " + activeYear} yet \u2014 check back soon.</p>`;
+    list.innerHTML = `<p class="empty">No upcoming ${activeFilter === "All" ? "" : activeFilter.toLowerCase() + " "}events listed in ${COUNTRY_NAMES[activeCountry] || activeCountry}${activeYear === "all" ? "" : " for " + activeYear}${activeMonth === "all" ? "" : " in " + MONTHS[Number(activeMonth)]} yet — check back soon.</p>`;
     return;
   }
 
@@ -715,6 +874,21 @@ function buildFilters(){
   });
 }
 
+function buildMonths(){
+  const sel = document.getElementById("monthSelect");
+  const months = [...new Set(upcoming
+    .filter(e => (e.country||"GB") === activeCountry)
+    .map(e => e.start.getMonth()))].sort((a,b) => a - b);
+  const opts = sel.querySelectorAll("option");
+  opts.forEach((o,i) => {if(i > 0) o.remove()});
+  months.forEach(m => {
+    const count = upcoming.filter(e => (e.country||"GB") === activeCountry && e.start.getMonth() === m).length;
+    const o = document.createElement("option");
+    o.value = String(m); o.textContent = `${MONTHS[m]} (${count})`;
+    sel.appendChild(o);
+  });
+}
+
 function buildYears(){
   const sel = document.getElementById("yearSelect");
   const years = [...new Set(upcoming
@@ -744,20 +918,25 @@ function buildCountries(){
     const count = upcoming.filter(e => (e.country||"GB") === code).length;
     const o = document.createElement("option");
     o.value = code;
-    o.textContent = (COUNTRY_NAMES[code] || code) + (count ? ` (${count})` : " \u2014 coming soon");
+    o.textContent = (COUNTRY_NAMES[code] || code) + (count ? ` (${count})` : " — coming soon");
     sel.appendChild(o);
   });
   sel.value = activeCountry;
-  sel.addEventListener("change", () => { activeCountry = sel.value; buildYears(); render(); });
+  sel.addEventListener("change", () => { activeCountry = sel.value; activeMonth = "all"; buildYears(); buildMonths(); render(); });
 }
 
 buildCountries();
 buildYears();
+buildMonths();
 buildFilters();
 document.getElementById("yearSelect").addEventListener("change", e => {
   activeYear = e.target.value; render();
 });
+document.getElementById("monthSelect").addEventListener("change", e => {
+  activeMonth = e.target.value; render();
+});
 render();
 </script>
+
 </body>
 </html>
